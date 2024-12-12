@@ -35,6 +35,57 @@ func split(sum int) (x, y int){
 	return
 }
 
+func loop() {
+	sum := 0
+	for i := 0; i < 10; i++ {
+		sum += i
+	}
+	fmt.Println(sum)
+
+	// init and post statements are optional
+	newSum := 1
+	for ; newSum < 1000; {
+		newSum += newSum
+	}
+	fmt.Println(newSum)
+
+	// While loop is just "For"
+	newSum = 1
+	for newSum < 1000 {
+		newSum += newSum
+	}
+	fmt.Println(newSum)
+
+}
+
+func sqrt(x float64) string {
+	if x < 0 {
+		return sqrt(-x) + "i"
+	}
+	return fmt.Sprint(math.Sqrt(x))
+}
+
+func pow(x, n, lim float64) float64 {
+	// Variables declared by statement are only in scope until end of the if
+	if v := math.Pow(x, n); v < lim {
+		return v
+	}
+	return lim
+}
+
+func Sqrt(x float64) float64{
+	z := 1.0
+
+	for i := 0; i <= 30; i++{
+		if z == x {
+			break;
+		} 
+		z -= (z*z - x) / (2*z)
+	}
+
+	return z
+}
+
 func main() {
 	// A var statement can be at package or function level. We see both in this example.
 	// If an initializer is present, the type can be omitted; the variable will take the type of the initializer.
@@ -46,8 +97,6 @@ func main() {
 	
 	// var i, j = 1, 2
 	// i, j := 1, 2
-
-
 
 	fmt.Println("My favorite number is", rand.Intn(10))
 	fmt.Printf("Now you have %g problems.\n", math.Sqrt(7))
@@ -76,4 +125,21 @@ func main() {
 	// the variable's type is inferred from the value on the right hand side.
 	v := 0.867 + 0.5i // change me!
 	fmt.Printf("v is of type %T\n", v)
+	loop()
+
+	fmt.Println(sqrt(2), sqrt(-4))
+
+	fmt.Println(
+		pow(3, 2, 10),
+		pow(3, 3, 20),
+	)
+
+	
+	// A defer statement defers the execution of a function until the surrounding function returns.
+ 	// The deferred call's arguments are evaluated immediately, but the function call is not executed until 
+	// the surrounding function returns.
+	// Deferred function calls are pushed onto a stack. 
+	// When a function returns, its deferred calls are executed in last-in-first-out order.
+	defer fmt.Println("world")
+	fmt.Println(Sqrt(9))
 }
